@@ -1,0 +1,50 @@
+<!-- You must include this JavaScript file -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+
+<!-- For the full list of available Crowd HTML Elements and their input/output documentation,
+      please refer to https://docs.aws.amazon.com/sagemaker/latest/dg/sms-ui-template-reference.html -->
+
+<!-- You must include crowd-form so that your task submits answers to MTurk -->
+<crowd-form answer-format="flatten-objects">
+
+    <!-- The crowd-classifier element will create a tool for the Worker to select the
+           correct answer to your question -->
+    <crowd-classifier 
+      name="type"
+      categories="['Film', 'Performer', 'Film-crew', 'Others']"
+      header="What type does the named entity belong to?"
+    >
+
+      <classification-target>
+        <!-- The text you want classified will be substituted for the "text" variable when you 
+               publish a batch with a CSV input file containing multiple text items  -->
+        <p><strong>Title</strong></p>
+        <p>${Title}</p>
+        <p><strong>Text</strong></p>
+        <p>${Text}</p>
+        <crowd-input name="named_entity" placeholder="central named entity" required />
+      </classification-target>
+
+     <!-- Use the short-instructions section for quick instructions that the Worker
+            will see while working on the task. Including some basic examples of 
+            good and bad answers here can help get good results. You can include 
+            any HTML here. -->
+      <short-instructions>
+       Find the central entity (main subject) of the articles and select the type it belongs to. 
+      </short-instructions>
+
+      <!-- Use the full-instructions section for more detailed instructions that the 
+            Worker can open while working on the task. Including more detailed 
+            instructions and additional examples of good and bad answers here can
+            help get good results. You can include any HTML here. -->
+      <full-instructions header="Named Entity Annotation Instructions">
+        <p><strong>Film</strong> includes movie, documentary, film-franchise, TV series etc. For example, if the article is a movie reviews and the central entity is a movie.</p>
+        <p><strong>Performer</strong> only includes actor/actress for any sort of film </p>
+        <p><strong>Film-crew</strong>: includes any person or company/organization related to film other than performers. Examples include directors, producers, movie studios, etc.</p>
+        <p><strong>Others</strong>: anything that does not fit into "Film", "Performer" and "Film-crew"</p>
+        <p>If two entities are identified as central in the text, consider anyone of the two but not both. For example, if "A" and "B" are identified as central entities, annotate the central entity as either "A" or "B".</p>
+        <p>If an article seems to have no central entity, annotate it as "None". In this case, the type of this entity will be "Others"</p>
+      </full-instructions>
+
+    </crowd-classifier>
+</crowd-form> 

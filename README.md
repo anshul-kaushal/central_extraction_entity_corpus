@@ -12,4 +12,4 @@
 - [Corpus](https://github.ubc.ca/mds-cl-2021-22/523_group_9/blob/master/milestone_2/corpus.tsv)
 - [Corpus Explanation](https://github.ubc.ca/mds-cl-2021-22/523_group_9/blob/master/milestone_2/corpus_readme.md)
 - [Annotation Plan](https://github.ubc.ca/mds-cl-2021-22/523_group_9/blob/master/milestone_2/annotation_plan.ipynb)
-- [Annotation materials]()
+- [Annotation materials](milestone_2/annotation_materials/annotation_guidelines.md)
