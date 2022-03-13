@@ -13,3 +13,10 @@
 - [Corpus Explanation](https://github.ubc.ca/mds-cl-2021-22/523_group_9/blob/master/milestone_2/corpus_readme.md)
 - [Annotation Plan](https://github.ubc.ca/mds-cl-2021-22/523_group_9/blob/master/milestone_2/annotation_plan.ipynb)
 - [Annotation materials](milestone_2/annotation_materials/annotation_guidelines.md)
+
+
+## Milestone 3
+
+- [Annotation Explanation](milestone_3/annotation_explanation_code.ipynb)
+- [Interannotator Agreement](milestone_3/Interannotator_agreement_study.ipynb)
+- [Interface Plan](milestone_3/interface_plan/interface_plan.md)
