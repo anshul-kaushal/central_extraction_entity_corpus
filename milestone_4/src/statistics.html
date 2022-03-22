@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <main class="body-main about-main">
+        <nav class="nav-bar">
+            <ul class="nav-button">
+                <li>
+                    <a href="about.html"><img src="img/about.svg"></a>
+                </li>
+                <li>
+                    <a href="index.html"><img src="img/corpus.svg"></a> 
+                </li>
+                <li>
+                    <a href="#"><img src="img/analysis-selected.svg"></a>
+                </li>
+            </ul>
+            <a href="corpus.tsv" download='corpus'><img class="corpus-download" src="img/download-corpus.svg"></a>
+        </nav>
+        <div class="analysis-main">
+            <h2>
+                Data Distribution
+            </h2>
+            <p>
+                The distribution of the entity types is shown below. There is a significant class inbalance: 84.4% of texts fall under the film type.
+            </p>
+            <div class="image-container">
+                <img src="img/distribution.png">
+            </div>
+            <h2>
+                Most Common words in Central Entities
+            </h2>
+            <div class="image-container-entity">
+                <img src="img/entity_cloud.png" alt="" class="entity-cloud">
+            </div>
+            <h2>
+                Most Common Words in Texts
+            </h2>
+            <div class="image-container-entity">
+                <img src="img/text_cloud.png" alt="" class="entity-cloud">
+            </div>
+        </div>
+    </main>
+</body>
+</html>

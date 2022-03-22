@@ -10,14 +10,16 @@ from fastapi.responses import FileResponse, HTMLResponse
 from typing import Optional
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
+import time
 
 
 # get data from annotated corpus, convert to dictionary
-path = 'corpus.tsv'
+path = 'final_annotated_corpus.tsv'
 final_corpus = pd.read_csv(path,  delimiter='\t', encoding = 'utf-8')
 final_corpus_dict = final_corpus.T.to_dict()
 
 # connect to elasticsearch
+time.sleep(30)
 connections.create_connection(hosts=['localhost'])
 
 # define Elasticsearch Document
@@ -63,6 +65,7 @@ app = FastAPI(middleware=middleware)
 
 async def display_text(querys: str):
     s = filmartcle_index.search()
+    print('query is:', querys)
     query_text = dict([(i.split('=')[0],i.split('=')[1]) for i in querys.split('&')])
     field_list = ['central_entity', 'text']
     types_list = ['PERFORMER', 'FILM', 'OTHERS', 'FILM-CREW']
