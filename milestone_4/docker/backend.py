@@ -10,18 +10,25 @@ from fastapi.responses import FileResponse, HTMLResponse
 from typing import Optional
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-import time
 
 
 # get data from annotated corpus, convert to dictionary
-path = 'corpus.tsv'
-final_corpus = pd.read_csv(path,  delimiter='\t', encoding = 'utf-8')
-final_corpus_dict = final_corpus.T.to_dict()
+def get_data():
+    path = 'corpus.tsv'
+    final_corpus = pd.read_csv(path,  delimiter='\t', encoding = 'utf-8')
+    final_corpus_dict = final_corpus.T.to_dict()
+    return final_corpus_dict
 
 # connect to elasticsearch
-time.sleep(40)
 connections.create_connection(hosts=['localhost'])
 
+while True:
+    try:
+        print(connections.get_connection().info())
+        break
+    except Exception:
+        pass
+    
 # define Elasticsearch Document
 text_title_entity_analyser = analyzer('text_subject', tokenizer="classic", filter=["lowercase", "stemmer"]) # keep stop words? 'stop'
 
@@ -30,7 +37,8 @@ class FilmArticle(Document):
     text = Text(analyzer=text_title_entity_analyser)
     central_entity = Text(analyzer=text_title_entity_analyser)
     types = Text(analyzer=text_title_entity_analyser)
-    
+
+final_corpus_dict = get_data()
 # create index and object
 try:
     filmartcle_index = Index("filmartcle")
@@ -46,6 +54,7 @@ try:
 except Exception as e:
     print(e)
 
+
 middleware = [
     Middleware(
         CORSMiddleware,
@@ -54,6 +63,7 @@ middleware = [
         allow_methods=['*'],
         allow_headers=['*']
     )
+
 ]
 
 
@@ -65,7 +75,6 @@ app = FastAPI(middleware=middleware)
 
 async def display_text(querys: str):
     s = filmartcle_index.search()
-    print('query is:', querys)
     query_text = dict([(i.split('=')[0],i.split('=')[1]) for i in querys.split('&')])
     field_list = ['central_entity', 'text']
     types_list = ['PERFORMER', 'FILM', 'OTHERS', 'FILM-CREW']
