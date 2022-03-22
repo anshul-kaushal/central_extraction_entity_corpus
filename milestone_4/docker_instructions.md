@@ -1,5 +1,9 @@
+# Load Docker Image
+Grab `group_9_corpus.tar` from Google Drive. Navigate to the download location and run
+```shell
+docker load < group_9_corpus.tar
+```
 # Run Docker Image
-
 ```shell
 docker run -it --rm -p 8080:8080 -p 9999:9999 group_9_corpus
 ```
