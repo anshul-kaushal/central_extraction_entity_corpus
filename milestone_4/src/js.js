@@ -24,6 +24,10 @@ const prevButton = document.querySelector(`#prev`);
 const nextButton = document.querySelector(`#next`);
 pagination.innerHTML = `${pagValue + 1} of ${totalDivisons}`;
 
+if ((pagValue + 1) == (totalDivisons)) {
+    nextButton.disabled = true;
+}
+
 function goBack(){
     pagValue--;
     pagination.innerHTML = `${pagValue + 1} of ${totalDivisons + 1}`;
@@ -59,14 +63,20 @@ function getDataFromBE(queryString){
 		})
     .then((response) => response.json())
     .then((response) => {
-        if (response.length > 0){
+        console.log(response.length);
+        if (response.length > 10) {
             dataPreparer(response);
         }
         else {
             prevButton.disabled = true;
             nextButton.disabled = true;
-            pagination.innerHTML = `1 of 1`;
-            corpusEntries.innerHTML = `No records found`;
+            if (response.length == 0) {
+                pagination.innerHTML = `1 of 1`;
+                corpusEntries.innerHTML = `No records found`;
+            }
+            else {
+                dataPreparer(response);
+            }
         }
     })
 }
@@ -74,7 +84,6 @@ function getDataFromBE(queryString){
 function dataPreparer(data, pagValue=0) {
     corpusData = data;
     totalDivisons = Math.ceil(data.length/maxPerPage) - 1;
-    console.log(totalDivisons);
     pagination.innerHTML = `${pagValue + 1} of ${totalDivisons + 1}`;
     if (pagValue == totalDivisons) {
         showCorpusEntries(corpusData.slice(10*pagValue));
@@ -99,11 +108,11 @@ const textCheckBox = document.querySelector(`#text`);
 const entityCheckBox = document.querySelector(`#entity`);
 const textAllCheckBox = document.querySelector(`#textall`);
 
-const getData = function(string){
+const getData = function(string) {
     getDataFromBE(string);
 }
 
-const createQuery = function(){
+const createQuery = function() {
     pagValue = 0;
     getData(`textValue=${searchText.value}&central_entity=${entityCheckBox.checked}&text=${textCheckBox.checked}&textALL=${textAllCheckBox.checked}&FILM=${filmCheckBox.checked}&PERFORMER=${performerCheckBox.checked}&typeALL=${allCheckBox.checked}&OTHERS=${othersCheckBox.checked}&FILM-CREW=${filmcrewCheckBox.checked}`);
     nextButton.disabled = false;
