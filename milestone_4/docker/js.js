@@ -41,7 +41,7 @@ function goAhead(){
 }
 
 function getDataFromBE(queryString){	
-	fetch(`http://127.0.0.1:8000/${queryString}`, {
+	fetch(`http://127.0.0.1:9999/${queryString}`, {
 			"method": "GET"
 		})
     .then((response) => response.json())
