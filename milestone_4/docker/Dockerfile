@@ -1,6 +1,4 @@
 FROM elasticsearch:7.16.3
-# ENV ELASTIC_USERNAME=elastic
-# ENV ELASTIC_PASSWORD=changeme
 RUN apt-get update
 RUN apt-get install -y tzdata
 RUN apt-get install -y python3
@@ -16,4 +14,4 @@ COPY . /usr/src/app/
 RUN pip3 install -r requirements.txt
 EXPOSE 9999
 EXPOSE 8080
-CMD /usr/share/elasticsearch/bin/elasticsearch & python3 backend.py
+CMD /usr/share/elasticsearch/bin/elasticsearch & python3 backend.py & python3 -m http.server 8080

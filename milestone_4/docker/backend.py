@@ -14,12 +14,12 @@ import time
 
 
 # get data from annotated corpus, convert to dictionary
-path = 'final_annotated_corpus.tsv'
+path = 'corpus.tsv'
 final_corpus = pd.read_csv(path,  delimiter='\t', encoding = 'utf-8')
 final_corpus_dict = final_corpus.T.to_dict()
 
 # connect to elasticsearch
-time.sleep(30)
+time.sleep(40)
 connections.create_connection(hosts=['localhost'])
 
 # define Elasticsearch Document
