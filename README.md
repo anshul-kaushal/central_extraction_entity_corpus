@@ -1,4 +1,4 @@
-# 523_group_9
+# Central Entity Extraction Corpus
 
 ## Milestone 1
 
